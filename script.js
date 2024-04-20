@@ -65,7 +65,7 @@ for(i=1; i <= 5; i++){
 if(playerScore > CompScore){
    console.log(`Congratulations, you are the 1 with: ${playerScore} to ${CompScore}`);
 } else if(playerScore < CompScore){
-   console.log(`you have lost you fuck with score:${playerScore} to ${CompScore}`);
+   console.log(`you have lost with score:${playerScore} to ${CompScore}`);
 } else {
    console.log(`Its a tie:${playerScore} to ${CompScore}`)
 }
