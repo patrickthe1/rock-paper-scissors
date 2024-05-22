@@ -7,35 +7,44 @@ function getComputerChoice(){
 
 
  
-function getPlayerSelection(){
-   let choice = prompt("Make your choice").toLowerCase();
+function getPlayerSelection(selection){
+   let choice = selection.toLowerCase();
    return choice;
 }
 
+let resultBox = document.querySelector(".result");
+let answer = document.createElement("p");
 
 function playRound(playerSelection,computerSelection){
  if(playerSelection.toLowerCase() === computerSelection.toLowerCase()){
-    console.log( "Draw")
+    answer.textContent = "Draw";
+    resultBox.appendChild(answer);
     return 0;
  } else if (playerSelection.toLowerCase() === "rock" && computerSelection.toLowerCase()=== "paper")
  {
-    console.log( "You lost")
+   answer.textContent = "You lost";
+   resultBox.appendChild(answer);
     return 2;
  } else if (playerSelection.toLowerCase() === "paper" && computerSelection.toLowerCase()=== "rock")
  {
-    console.log( "You won")
+   answer.textContent = "You won";
+   resultBox.appendChild(answer);
     return 1;
  } else if (playerSelection.toLowerCase() === "scissors" && computerSelection.toLowerCase()=== "rock"){
-    console.log( "You lost!")
+   answer.textContent = "you lost";
+   resultBox.appendChild(answer);
     return 2;
  }  else if (playerSelection.toLowerCase() === "rock" && computerSelection.toLowerCase()=== "scissors"){
-    console.log( "You won!")
+   answer.textContent = "you won";
+   resultBox.appendChild(answer);
     return 1;
  } else if (playerSelection.toLowerCase() === "paper" && computerSelection.toLowerCase()=== "scissors"){
-    console.log( "You lost!")
+   answer.textContent = "you lost";
+   resultBox.appendChild(answer);
     return 2;
  } else if (playerSelection.toLowerCase() === "scissors" && computerSelection.toLowerCase()=== "paper"){
-    console.log( "You won!")
+   answer.textContent = "you won";
+   resultBox.appendChild(answer);
     return 1;
  } else {
     console.log( "unexpected token");
@@ -43,33 +52,51 @@ function playRound(playerSelection,computerSelection){
 }
 
 
-function playGame(){
-let playerScore = 0;
-let CompScore = 0;
 
-for(i=1; i <= 5; i++){
-    let compChoice = getComputerChoice();
-    let playerChoice = getPlayerSelection();
-    let result = playRound(playerChoice,compChoice);
-    
-    if(result === 1){
-      playerScore++;
-    } else if( result === 2){
-      CompScore++;
-    } else{
-      playerScore++;
-      CompScore++;
-    }
-}
+   let playerScore = 0;
+   let CompScore = 0;
+   let result;
+   let roundCount = 0;
+document.body.addEventListener("click", (event) => {
+  
+   
 
-if(playerScore > CompScore){
-   console.log(`Congratulations, you are the 1 with: ${playerScore} to ${CompScore}`);
-} else if(playerScore < CompScore){
-   console.log(`you have lost with score:${playerScore} to ${CompScore}`);
-} else {
-   console.log(`Its a tie:${playerScore} to ${CompScore}`)
-}
-}
+   switch(event.target.textContent){
+      case "Rock":result = playRound(getPlayerSelection("rock"),getComputerChoice());
+      break;
+      case "Paper":result = playRound(getPlayerSelection("paper"), getComputerChoice());
+      break;
+      case "Scissors":result = playRound(getPlayerSelection("scissors"), getComputerChoice());
+      break;
+      default:
+      console.log("An error occured");
+  }
+      roundCount++;
 
-console.log("Hello World");
-playGame();
+       if(result === 1){
+         playerScore++;
+       } else if( result === 2){
+         CompScore++;
+       } else{
+         playerScore++;
+         CompScore++;
+       }
+
+       if(roundCount === 5){
+           if(playerScore > CompScore){
+            answer.textContent=`Congratulations, you are the 1 with: ${playerScore} to ${CompScore}`;
+          } else if(playerScore < CompScore){
+          answer.textContent = `you have lost with score:${playerScore} to ${CompScore}`;
+          } else {
+           answer.textContent = `Its a tie:${playerScore} to ${CompScore}`;
+         }
+
+         roundCount = 0;
+         playerScore = 0;
+         CompScore = 0;
+       }
+})
+
+
+
+
